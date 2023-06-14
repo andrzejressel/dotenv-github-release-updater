@@ -20,14 +20,14 @@ jobs:
     - uses: coursier/cache-action@v6.3
     - uses: VirtusLab/scala-cli-setup@v1.0.1
     - run: scala-cli test .
-    - run: scala-cli --power package --native --native-version 0.4.14 . -o app
-  build-windows:
-    runs-on: "windows-latest"
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-    - uses: coursier/cache-action@v6.3
-    - uses: VirtusLab/scala-cli-setup@v1.0.1
-    - run: scala-cli test .
-    - run: scala-cli --power package --native-image . -o app
+    - run: scala-cli --power package --native --native-version 0.4.14 . -o app --dependency com.armanbilge::epollcat:0.1.4
+#   build-windows:
+#     runs-on: "windows-latest"
+#     steps:
+#     - uses: actions/checkout@v3
+#       with:
+#         fetch-depth: 0
+#     - uses: coursier/cache-action@v6.3
+#     - uses: VirtusLab/scala-cli-setup@v1.0.1
+#     - run: scala-cli test .
+#     - run: scala-cli --power package --native-image . -o app
