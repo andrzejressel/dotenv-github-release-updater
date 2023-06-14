@@ -20,4 +20,5 @@ jobs:
     - uses: coursier/cache-action@v6.3
     - uses: VirtusLab/scala-cli-setup@v1.0.1
     - run: scala-cli test .
+    - run: scala-cli --power package --native . -o app --native-version 0.4.13
     - run: scala-cli --power package --native-image . -o app
