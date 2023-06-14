@@ -12,6 +12,7 @@ jobs:
     strategy:
       matrix:
         OS: ["ubuntu-latest", "macos-latest", "windows-latest"]
+      fail-fast: false
     steps:
     - uses: actions/checkout@v3
       with:
@@ -19,4 +20,4 @@ jobs:
     - uses: coursier/cache-action@v6.3
     - uses: VirtusLab/scala-cli-setup@v1.0.1
     - run: scala-cli test .
-    - run: scala-cli --power package --native . -o app
+    - run: scala-cli --power package --native-image . -o app
