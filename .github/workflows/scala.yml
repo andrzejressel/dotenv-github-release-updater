@@ -22,7 +22,7 @@ jobs:
     - name: Set up Homebrew
       id: set-up-homebrew
       uses: Homebrew/actions/setup-homebrew@master
-    - run: brew install s2n
+    - run: HOMEBREW_NO_AUTO_UPDATE=1 brew install s2n
 #     - run: scala-cli test .
     - run: scala-cli --power package --native --native-version 0.4.14 . -o app --dependency "com.armanbilge::epollcat::0.1.4"
 #   build-windows:
