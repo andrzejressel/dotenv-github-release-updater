@@ -19,6 +19,10 @@ jobs:
         fetch-depth: 0
     - uses: coursier/cache-action@v6.3
     - uses: VirtusLab/scala-cli-setup@v1.0.1
+    - name: Set up Homebrew
+      id: set-up-homebrew
+      uses: Homebrew/actions/setup-homebrew@master
+    - run: brew install s2n
 #     - run: scala-cli test .
     - run: scala-cli --power package --native --native-version 0.4.14 . -o app --dependency "com.armanbilge::epollcat::0.1.4"
 #   build-windows:
