@@ -21,12 +21,17 @@ jobs:
     - uses: VirtusLab/scala-cli-setup@v1.0.1
     - name: Install brew formulae (ubuntu)
       if: startsWith(matrix.OS, 'ubuntu')
-      run: /home/linuxbrew/.linuxbrew/bin/brew install openssl s2n
+      run: 
+        /home/linuxbrew/.linuxbrew/bin/brew install openssl s2n
+        export LD_LIBRARY_PATH="$(brew --prefix)/lib${LD_LIBRARY_PATH:+:"${LD_LIBRARY_PATH}"}"
+        echo $LD_LIBRARY_PATH
     - name: Install brew formulae (macOS)
       if: startsWith(matrix.OS, 'macos')
       run: HOMEBREW_NO_AUTO_UPDATE=1 brew install openssl s2n
 #     - run: scala-cli test .
-    - run: scala-cli --power package --native --native-version 0.4.14 . -o app --dependency "com.armanbilge::epollcat::0.1.5"
+    - run: 
+        echo $LD_LIBRARY_PATH
+        scala-cli --power package --native --native-version 0.4.14 . -o app --dependency "com.armanbilge::epollcat::0.1.5"
     - name: Archive code coverage results
       uses: actions/upload-artifact@v3
       with:
