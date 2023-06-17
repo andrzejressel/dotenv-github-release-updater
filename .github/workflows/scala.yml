@@ -21,3 +21,5 @@ jobs:
     - uses: VirtusLab/scala-cli-setup@v1.0.1
     - name: Perform tests
       run: scala-cli test .
+    - name: Package
+      run: scala-cli --power package --native-image . -o app
