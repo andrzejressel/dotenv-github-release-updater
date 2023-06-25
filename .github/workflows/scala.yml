@@ -8,10 +8,10 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}-latest
     strategy:
       matrix:
-        os: ["windows-latest", "ubuntu-latest", "macos-latest"]
+        os: ["windows", "ubuntu", "macos"]
       fail-fast: false
     steps:
     - uses: actions/checkout@v3
@@ -22,4 +22,8 @@ jobs:
     - name: Perform tests
       run: scala-cli test .
     - name: Package
-      run: scala-cli --power package --native-image . -o dotenv-github-release-updater --jvm-index https://raw.githubusercontent.com/coursier/jvm-index/d958ac261071f800de6341444dc8df98e9dd260c/index.json --graalvm-jvm-id graalvm-java20:20.0.1
+      run: scala-cli --power package --native-image . -o dist/${{ matrix.os }}-dotenv-github-release-updater --jvm-index https://raw.githubusercontent.com/coursier/jvm-index/d958ac261071f800de6341444dc8df98e9dd260c/index.json --graalvm-jvm-id graalvm-java20:20.0.1
+    - uses: actions/upload-artifact@v3
+      with:
+        name: ${{ matrix.os }}
+        path: dist
