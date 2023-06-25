@@ -46,6 +46,7 @@ jobs:
         with:
           name: ${{ steps.short-sha.outputs.sha }}
           target_commitish: ${{ github.sha }}
+          prerelease: true
           tag_name: ${{ steps.short-sha.outputs.sha }}
           fail_on_unmatched_files: true
           files: |
