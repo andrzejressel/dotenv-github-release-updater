@@ -37,12 +37,18 @@ class MainSuite extends CatsEffectSuite {
   }
 
   test("should find latest version") {
+    val token = Option(System.getenv("GITHUB_TOKEN"))
+    token match {
+      case Some(_) => println("Found GITHUB_TOKEN")
+      case None => println("Not GITHUB_TOKEN found")
+    }
+
     val application =
       createApplication(Repository("actions", "upload-release-asset"))
     val newVersion = EmberClientBuilder
       .default[IO]
       .build
-      .use(client => Main.updateSingleVersion(application, None, client))
+      .use(client => Main.updateSingleVersion(application, token, client))
 
     newVersion.map(_.version).assertEquals("1.0.2")
   }
