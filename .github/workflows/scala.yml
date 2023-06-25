@@ -29,3 +29,26 @@ jobs:
       with:
         name: ${{ matrix.os }}
         path: dist
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          path: dist/
+      - uses: benjlevesque/short-sha@v2.2
+        id: short-sha
+        with:
+          length: 7
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ steps.short-sha.outputs.sha }}
+          target_commitish: ${{ github.sha }}
+          tag_name: ${{ steps.short-sha.outputs.sha }}
+          fail_on_unmatched_files: true
+          files: |
+            dist/**/*
+          body: |
+            Created from: ${{ github.sha }}
