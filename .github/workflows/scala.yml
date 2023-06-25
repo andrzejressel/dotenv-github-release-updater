@@ -21,6 +21,8 @@ jobs:
     - uses: VirtusLab/scala-cli-setup@v1.0.1
     - name: Perform tests
       run: scala-cli test .
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Package
       run: scala-cli --power package --native-image . -o dist/${{ matrix.os }}-dotenv-github-release-updater --jvm-index https://raw.githubusercontent.com/coursier/jvm-index/d958ac261071f800de6341444dc8df98e9dd260c/index.json --graalvm-jvm-id graalvm-java20:20.0.1
     - uses: actions/upload-artifact@v3
